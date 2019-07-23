@@ -30,10 +30,11 @@ class wadevTransactionAction extends wadevViewAction
         );
 
         $total = ['plus' => 0, 'minus' => 0];
+        if ($transactions){
         foreach ($transactions as $transaction) {
             $total[$transaction->amount > 0 ? 'plus' : 'minus'] += $transaction->amount;
         }
-
+        }
         $balance = wa('wadev')->getConfig()->currentBalance(true);
 
         wadevHelper::assignPagination($this->view, $start, $limit, $total_rows);
